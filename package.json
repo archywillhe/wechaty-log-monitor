@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@types/node": "^14.0.27",
+    "wechaty": "^0.43.5",
+    "ts-node": "^8.10.2",
+    "underscore": "^1.10.2"
+  },
+  "name": "wechaty-log-monitor",
+  "version": "1.1.0",
+  "description": "一个基于wechaty来进行wechaty devops的wechaty plugin, primarily for log monitoring.",
+  "main": "index.ts",
+  "devDependencies": {
+    "typescript": "^3.9.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archywillhe/wechaty-log-monitor.git"
+  },
+  "author": "何魏奇Archy Will He",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/archywillhe/wechaty-log-monitor/issues"
+  },
+  "homepage": "https://github.com/archywillhe/wechaty-log-monitor#readme"
+}
