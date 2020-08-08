@@ -1,14 +1,15 @@
 {
   "dependencies": {
     "@types/node": "^14.0.27",
-    "wechaty": "^0.43.5",
+    "read-last-lines": "^1.7.2",
     "ts-node": "^8.10.2",
-    "underscore": "^1.10.2"
+    "underscore": "^1.10.2",
+    "wechaty": "^0.43.5"
   },
   "name": "wechaty-log-monitor",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "一个基于wechaty来进行wechaty devops的wechaty plugin, primarily for log monitoring.",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "devDependencies": {
     "typescript": "^3.9.6"
   },
