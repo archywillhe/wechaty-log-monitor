@@ -2,13 +2,9 @@
 
 ## Wechaty Log Monitor
 
-一个基于Wechaty来进行Wechaty DevOps的Wechaty plugin, 主要用来做log monitoring, log alert,  以及像「掉线给码(QR Rescue)」的operations.
+一个基于Wechaty来进行Wechaty DevOps的Wechaty plugin, 主要用来做「掉线给码(QR Rescue)」等log-related的operations.
 
-# Requirement
-
-至少两个Wechaty bots（要部署到同个server）。
-
-「掉线给码」登陆的话需要两部手机。
+![demo](demo.jpeg)
 
 ## Quickstart
 
@@ -17,18 +13,21 @@ yarn add wechaty-log-monitor@latest
 ```
 
 ```
-const qrResuce = makeQRRescueOperation({
-  logFile: "../the-other-bot.log",
-  adminWeixin: "weixinUserName"
-})
+const qrResuceForB = qrResuce(({
+  logFile: "../botBob.log",
+  adminWeixin: "BobWeixin"
+},{loginTest:"您好世界"}))
 const errorAlert = errorAlertOperation({
-  logFile: "../the-other-bot-errors.log",
-  adminWeixin: "weixinUserName"
+  logFile: "../botBob-errors.log",
+  adminWeixin: "BobWeixin"
 })
+const restartBobPM2 = restartPM2({
+  adminWeixin: "BobWeixin"
+},{pm2Id:1})
 bot.use(
   WechatyLogMonitor({
     enableSelfToBeQrRescued: true,
-    logOperations:[qrResuce, errorAlert]
+    logOperations:[qrResuce, errorAlert,restartBobPM2]
   }),
 )
 ```
@@ -39,31 +38,17 @@ bot.use(
 
 一个Wechaty掉线了，另一个Wechaty会发QR码给这个微信号来重新登陆～
 
-（对于在production跑的Wechaty，这样就不用每次都`ssh`+`su sudo`+打开log扫码来重登了。）
+这样掉线了就不用`ssh`到production服务器，然后`sudo su git`+`pm2 logs --lines 100`来进行扫码重登了。
+
+(至少两个Wechaty bots（要部署到同个server）。「掉线给码」登陆的话需要两部手机。)
+
 
 二、发Err给你
 
 有error就会发给你
 
-三、`bash` 任何 scripts
+三、重启 pm2
 
-e.g. 重启 pm2
+# To-do
 
-# Future Functionalities
-
-一、add authentication support for dangerous commands (using SMS, authy, googleAuth)
-
-```
-bot.use(
-  WechatyLogMonitor({
-    enableSelfToBeQrRescued: true,
-    logOperations:[{
-      logFile: "../nyan.log",
-      adminWeixin: "weixinUserName",
-      whenLogFileIsChanged: logFileLambda,
-      whenCommandReceived: commandLambda, //contain dangerous commands
-      securityRule: WechatyLogOperationSecurityRule.SMSVerification
-      }],  
-  }),
-)
-```
+1. add authentication support for dangerous commands (using SMS, authy, googleAuth)

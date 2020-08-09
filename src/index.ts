@@ -49,7 +49,7 @@ export function WechatyLogMonitor(pluginConfig: WechatyLogMonitorPluginConfig): 
       })
     }
 
-   const startListeningToCommands = (bot:Wechaty,logOperations:WechatyLogOperation[])=>{
+   const startReactingToCmds = (bot:Wechaty,logOperations:WechatyLogOperation[])=>{
      bot.on("message", async (msg: Message) => {
        _.each(logOperations,({onCmdReceived, config})=>{
          if(typeof onCmdReceived === "undefined") return
@@ -89,7 +89,7 @@ export function WechatyLogMonitor(pluginConfig: WechatyLogMonitorPluginConfig): 
     bot.on("login",(user:Contact)=>{
       startWatchingLog(bot,logOperations)
     })
-    startListeningToCommands(bot,logOperations)
+    startReactingToCmds(bot,logOperations)
    }
 
 }

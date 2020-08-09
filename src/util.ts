@@ -10,16 +10,11 @@ const _ = require("underscore");
 export const watchAndStream = (
   file:string,callback:(content:string)=>void
 )=>{
-
   if(!fs.existsSync(file)){
     console.log(`file-to-watch ${file} not exist`)
     return
   }
-
-  const globalState = { isStreaming : false }
-
   fs.watchFile(file,{ interval: 2000 },(curr,prev) => {
-
     const stream = fs.createReadStream(file,{start:prev.size, end:curr.size})
     stream.on("data",function(data){
       const chunk = data.toString();
@@ -27,7 +22,6 @@ export const watchAndStream = (
       callback(chunk)
     })
   })
-
 }
 
 export const getLastMatch = (pattern:RegExp,string:string):any|null=>{

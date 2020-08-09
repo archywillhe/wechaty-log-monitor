@@ -48,7 +48,7 @@ const qrCodeAwaitingToBeScanned = (lastFewLines:string):string|undefined => {
     // console.log("comparison",indexOfLastSignOfLoggedIn,match?.index)
     if(match) return match.index > indexOfLastSignOfLoggedIn ? match[1] : undefined
     return undefined
-  }
+}
 
   const isUserLoggedIn = (lastFewLines:string):boolean => {
     const signThatItIsLoggedIn = /INFO StarterBot Contact<(.*)?> login/g
