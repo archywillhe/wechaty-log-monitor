@@ -38,7 +38,7 @@ bot.use(
 
 二、发log给你
 
-每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，`limitPerMinute`可改为任何数值。
+每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，一个小时最多发30条，`maxLogPerMinute`和``maxLogPerHour``可改为任何数值。
 除此之外，如果adminWeixin发给bot「log `customName`」, bot会把整个log发给你。
 
 ```
