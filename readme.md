@@ -17,17 +17,11 @@ const qrResuceForB = qrResuce(({
   logFile: "../botBob.log",
   adminWeixin: "BobWeixin"
 },{loginTest:"您好世界"}))
-const errorAlert = errorAlertOperation({
-  logFile: "../botBob-errors.log",
-  adminWeixin: "BobWeixin"
-})
-const restartBobPM2 = restartPM2({
-  adminWeixin: "BobWeixin"
-},{pm2Id:1})
+
 bot.use(
   WechatyLogMonitor({
     enableSelfToBeQrRescued: true,
-    logOperations:[qrResuce, errorAlert,restartBobPM2]
+    logOperations:[qrResuce]
   }),
 )
 ```
@@ -42,12 +36,37 @@ bot.use(
 
 (至少两个Wechaty bots（要部署到同个server）。「掉线给码」登陆的话需要两部手机。)
 
+二、发log给你
 
-二、发Err给你
+每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发5条，`limitPerMinute`可改为任何数值。
+除此之外，如果adminWeixin发给bot「log `customName`」, bot会把整个log发给你。
 
-有error就会发给你
+```
+const errorAlert = logAlert({
+  logFile: "../botBob-errors.log",
+  adminWeixin: "BobWeixin"
+},{limitPerMinute:5,customName:"bob"})
+bot.use(
+  WechatyLogMonitor({
+    logOperations:[errorAlert]
+  }),
+)
+```
 
 三、重启 pm2
+
+adminWeixin发`restart`给bot,bot就会重启指定的pm2.
+
+```
+const restartBobPM2 = restartPM2({
+  adminWeixin: "BobWeixin"
+},{pm2Id:1})
+bot.use(
+  WechatyLogMonitor({
+    logOperations:[restartBobPM2]
+  }),
+)
+```
 
 # To-do
 

@@ -20,7 +20,7 @@ export const restartPM2 = (
 
 
 export const logAlert = (
-  config: WechatyLogOperationConfig, parameter:{customName:string}
+  config: WechatyLogOperationConfig, parameter:{limitPerMinute:5, customName:string}
 ):WechatyLogOperation => {
   const maxLogPerMin = 3
   var currentLogCount = 0
