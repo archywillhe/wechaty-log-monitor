@@ -20,9 +20,9 @@ export const restartPM2 = (
 
 
 export const logAlert = (
-  config: WechatyLogOperationConfig, parameter:{limitPerMinute:5, customName:string}
+  config: WechatyLogOperationConfig, parameter:{maxLogPerMin:number, customName:string}
 ):WechatyLogOperation => {
-  const maxLogPerMin = 3
+  cont {maxLogPerMin=3, customName=""}= parameter
   var currentLogCount = 0
   return{
     config,
@@ -30,7 +30,7 @@ export const logAlert = (
       bot:Wechaty, cmd:string, config: WechatyLogOperationConfig
     ) => {
         const {adminWeixin,logFile=""} = config
-        if(cmd === ("log "+parameter.customName)){
+        if(cmd === ("log "+customName)){
           console.log("attempting to display "+logFile)
           botSendToBot(bot,adminWeixin,FileBox.fromFile(logFile,"log.txt"))
         }
