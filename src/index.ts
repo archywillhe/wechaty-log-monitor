@@ -40,9 +40,10 @@ export function WechatyLogMonitor(pluginConfig: WechatyLogMonitorPluginConfig): 
    log.verbose('WechatyLogMonitorPluginOption', 'initial with config %s', JSON.stringify(pluginConfig, null, 2))
 
    const startWatchingLog = (bot:Wechaty,logOperations:WechatyLogOperation[])=>{
-      _.each(logOperations,({onLogFileIsChanged, config})=>{
+      _.each(logOperations,(operation:WechatyLogOperation)=>{
+        const {onLogFileIsChanged, config} = operation
         if(typeof onLogFileIsChanged === "undefined") return
-        const {logFile} = config
+        const {logFile=""} = config
         watchAndStream(logFile,(content)=>{
           onLogFileIsChanged(bot,content)
         })
@@ -51,7 +52,8 @@ export function WechatyLogMonitor(pluginConfig: WechatyLogMonitorPluginConfig): 
 
    const startReactingToCmds = (bot:Wechaty,logOperations:WechatyLogOperation[])=>{
      bot.on("message", async (msg: Message) => {
-       _.each(logOperations,({onCmdReceived, config})=>{
+       _.each(logOperations,(operation:WechatyLogOperation)=>{
+         const {onCmdReceived, config} = operation
          if(typeof onCmdReceived === "undefined") return
          if (msg.type() !== Message.Type.Text) return
          const contact = msg.self() ? msg.to() :  msg.from()
@@ -86,7 +88,7 @@ export function WechatyLogMonitor(pluginConfig: WechatyLogMonitorPluginConfig): 
    return function (bot) {
     const {logOperations, enableSelfToBeQrRescued=true} = pluginConfig
     if(enableSelfToBeQrRescued) makeSelfToBeQrRescued(bot)
-    bot.on("login",(user:Contact)=>{
+    bot.on("login",(_:Contact)=>{
       startWatchingLog(bot,logOperations)
     })
     startReactingToCmds(bot,logOperations)

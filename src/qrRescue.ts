@@ -2,7 +2,7 @@ import { Wechaty, FileBox } from 'wechaty'
 import {getLastMatch, readLastLines, botSendToBot } from "./util"
 import {WechatyLogOperationConfig, WechatyLogOperation} from "./index"
 
-const _ = require("underscore");
+// const _ = require("underscore");
 
 export const qrRescue = (
   config: WechatyLogOperationConfig,parameter:{loginTest:string}
@@ -26,7 +26,7 @@ export const qrRescue = (
   }
 
   const onLogFileIsChanged = async (bot:Wechaty, newLogs:string) =>{
-    const { logFile="", adminWeixin} = config
+    const {adminWeixin} = config
     if(globalState.isDisabled) return
     if(globalState.isOtherBotAlive){
       const latestQRCode = qrCodeAwaitingToBeScanned(newLogs)
@@ -67,15 +67,18 @@ const qrCodeAwaitingToBeScanned = (lastFewLines:string):string|undefined => {
         case("qr"):
         const last50Lines = readLastLines(logFile,50)
         const qrURL = qrCodeAwaitingToBeScanned(last50Lines)
-        const qrImage = qrURL ?
-         botSendToBot(bot, adminWeixin, FileBox.fromUrl(qrURL,'qr.png')) :
+        if(qrURL){
+         botSendToBot(bot, adminWeixin, FileBox.fromUrl(qrURL,'qr.png'))
+       }else{
          botSendToBot(bot, adminWeixin, "登陆了啦" )
+       }
           break
         case("disable-qrRescue"):
           globalState.isDisabled = true
           break
         case("enable-qrRescue"):
           globalState.isDisabled = false
+          break
         default:
       }
   }

@@ -2,7 +2,7 @@ import { Wechaty, FileBox } from 'wechaty'
 import {execAndPipeToBot, botSendToBot } from "./util"
 import {WechatyLogOperationConfig, WechatyLogOperation} from "./index"
 
-const _ = require("underscore");
+// const _ = require("underscore");
 
 export const restartPM2 = (
   config: WechatyLogOperationConfig, parameter:{pm2Id:number}
@@ -22,7 +22,7 @@ export const restartPM2 = (
 export const logAlert = (
   config: WechatyLogOperationConfig, parameter:{maxLogPerMin:number,maxLogPerHour:number, customName:string}
 ):WechatyLogOperation => {
-  cont {maxLogPerMin=3, customName=""}= parameter
+  const {maxLogPerMin=3, customName=""}= parameter
   var currentLogCount = 0
   return{
     config,
@@ -32,7 +32,10 @@ export const logAlert = (
         const {adminWeixin,logFile=""} = config
         if(cmd === ("log "+customName)){
           console.log("attempting to display "+logFile)
-          botSendToBot(bot,adminWeixin,FileBox.fromFile(logFile,"log.txt"))
+          const logFile = FileBox.fromFile(logFile,"log.txt")
+          const base64 = await logFile.toBase64()
+          const logFile64 = FleBox.fromBase64(logFile, 'log.txt')
+          botSendToBot(bot,adminWeixin,logFile64)
         }
     },
     onLogFileIsChanged : async (bot:Wechaty, newLogs:string) => {

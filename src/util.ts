@@ -1,11 +1,11 @@
 import * as fs from "fs";
 import {  Wechaty, FileBox } from 'wechaty'
+// import {WechatyCommandLambda } from "./index"
 
 export const readLastLines = require('read-last-lines')
 const { exec } = require("child_process");
 
-const _ = require("underscore");
-
+// const _ = require("underscore");
 
 export const watchAndStream = (
   file:string,callback:(content:string)=>void
@@ -32,8 +32,8 @@ export const getLastMatch = (pattern:RegExp,string:string):any|null=>{
   return match
 }
 
-export const execAndPipeToBot = (terminalCmd,bot,adminWeixin) => {
-  exec(terminalCmd, (error, stdout, stderr) => {
+export const execAndPipeToBot = (terminalCmd:string,bot:Wechaty,adminWeixin:string) => {
+  exec(terminalCmd, (error:any, stdout:any, stderr:any) => {
     if (error) botSendToBot(bot,adminWeixin,`error: ${error.message}`)
     if (stderr) botSendToBot(bot,adminWeixin,`stderr: ${stderr}`)
     if (stdout) botSendToBot(bot,adminWeixin,`stdout: ${stdout}`)
