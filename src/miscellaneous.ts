@@ -32,10 +32,10 @@ export const logAlert = (
         const {adminWeixin,logFile=""} = config
         if(cmd === ("log "+customName)){
           console.log("attempting to display "+logFile)
-          const logFile = FileBox.fromFile(logFile,"log.txt")
-          const base64 = await logFile.toBase64()
-          const logFile64 = FleBox.fromBase64(logFile, 'log.txt')
-          botSendToBot(bot,adminWeixin,logFile64)
+          const filebox = FileBox.fromFile(logFile,"log.txt")
+          const base64 = await filebox.toBase64()
+          const filebox64 = FileBox.fromBase64(base64, 'log.txt')
+          botSendToBot(bot,adminWeixin,filebox64)
         }
     },
     onLogFileIsChanged : async (bot:Wechaty, newLogs:string) => {
