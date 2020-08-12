@@ -16,7 +16,7 @@ export const qrRescue = (
     globalState.isOtherBotAlive = false
     const qrCodeImage = FileBox.fromUrl(qrCodeToLogin,'qr.png')
     // console.log(qrCodeToLogin,qrCodeImage)
-    botSendToBot(bot, adminWeixin, "掉线了啦")
+    botSendToBot(bot, adminWeixin, "快来扫我鸭🦆")
     botSendToBot(bot, adminWeixin, qrCodeImage)
   }
 

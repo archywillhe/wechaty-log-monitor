@@ -5,7 +5,7 @@ import {WechatyLogOperationConfig, WechatyLogOperation} from "./index"
 // const _ = require("underscore");
 
 export const restartPM2 = (
-  config: WechatyLogOperationConfig, parameter:{pm2Id:number}
+  config: WechatyLogOperationConfig, parameter:{pm2Id:any}
 ):WechatyLogOperation => {
   return{
     config,
