@@ -10,26 +10,9 @@
 
 ## Quick guide to implement your log operation:
 
-```
+```typescript
 import { Wechaty, FileBox } from 'wechaty'
-import {execAndPipeToBot, botSendToBot } from "./util"
-import {WechatyLogOperationConfig, WechatyLogOperation} from "./index"
-
-export const somethingNew = (
-  config: WechatyLogOperationConfig, parameter:{pm2Id:number}
-):WechatyLogOperation => {
-  return{
-    config,
-    onLogFileIsChanged : async (bot:Wechaty, newLogs:string)=> {
-        //your side effect
-    },
-    onCmdReceived : async (
-      bot:Wechaty, cmd:string, config: WechatyLogOperationConfig
-    ) => {
-        //your side effect
-    }
-  }
-}
+import {execAndPipeToBot, botSendToBot, WechatyLogOperationConfig, WechatyLogOperation } from "wechaty-log-monitor"
 
 bot.use(
   WechatyLogMonitor({
@@ -41,11 +24,9 @@ bot.use(
 
 ## Quickstart
 
-```
+```bash
 yarn add wechaty-log-monitor@latest
 ```
-
-## features implemented
 
 ### 一、掉线给码(QR Rescue)
 
@@ -59,7 +40,9 @@ Requirements:
 
 - 登陆的话因为要用到微信「扫一扫」功能，需要两部手机，或一个手机+把qr投影到一个屏幕上
 
-```
+```typescript
+import {qrResuce, WechatyLogMonitor} from "wechaty-log-monitor"
+
 const qrResuceForB = qrResuce(({
   logFile: "../botBob.log",
   adminWeixin: "BobWeixin"
@@ -81,7 +64,9 @@ bot.use(
 
 除此之外，如果adminWeixin发给bot「log `customName`」, bot会把整个log发给adminWeixin。
 
-```
+```typescript
+import {logAlert, WechatyLogMonitor} from "wechaty-log-monitor"
+
 const errorAlert = logAlert({
   logFile: "../botBob-errors.log",
   adminWeixin: "BobWeixin"
@@ -97,7 +82,9 @@ bot.use(
 
 adminWeixin发`restart`给bot,bot就会重启函数中指定的pm2.
 
-```
+```typescript
+import {restartPM2, WechatyLogMonitor} from "wechaty-log-monitor"
+
 const restartBobPM2 = restartPM2({
   adminWeixin: "BobWeixin"
 },{pm2Id:"archy"})
