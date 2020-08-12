@@ -33,6 +33,7 @@ export const getLastMatch = (pattern:RegExp,string:string):any|null=>{
 }
 
 export const execAndPipeToBot = (terminalCmd:string,bot:Wechaty,adminWeixin:string) => {
+  botSendToBot(bot,adminWeixin,"我要执行 `"+terminalCmd+"` 了啦！")
   exec(terminalCmd, (error:any, stdout:any, stderr:any) => {
     if (error) botSendToBot(bot,adminWeixin,`error: ${error.message}`)
     if (stderr) botSendToBot(bot,adminWeixin,`stderr: ${stderr}`)

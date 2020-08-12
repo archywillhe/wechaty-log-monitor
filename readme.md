@@ -42,14 +42,17 @@ bot.use(
 
 ### 二、发log给你
 
-每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，一个小时最多发30条，`maxLogPerMinute`和`maxLogPerHour`可改为任何数值。
+每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，`maxLogPerMinute`可改为任何数值。
+
+<!-- 每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，一个小时最多发30条，`maxLogPerMinute`和`maxLogPerHour`可改为任何数值。 -->
+
 除此之外，如果adminWeixin发给bot「log `customName`」, bot会把整个log发给adminWeixin。
 
 ```
 const errorAlert = logAlert({
   logFile: "../botBob-errors.log",
   adminWeixin: "BobWeixin"
-},{limitPerMinute:5,customName:"bob"})
+},{limitPerMinute:3,customName:"bob"})
 bot.use(
   WechatyLogMonitor({
     logOperations:[errorAlert]
@@ -59,12 +62,12 @@ bot.use(
 
 ### 三、重启 pm2
 
-adminWeixin发`restart`给bot,bot就会重启指定的pm2.
+adminWeixin发`restart`给bot,bot就会重启函数中指定的pm2.
 
 ```
 const restartBobPM2 = restartPM2({
   adminWeixin: "BobWeixin"
-},{pm2Id:1})
+},{pm2Id:"archy"})
 bot.use(
   WechatyLogMonitor({
     logOperations:[restartBobPM2]
