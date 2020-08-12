@@ -65,7 +65,7 @@ const qrCodeAwaitingToBeScanned = (lastFewLines:string):string|undefined => {
           )
           break;
         case("qr"):
-        const last50Lines = readLastLines(logFile,50)
+        const last50Lines = readLastLines.read(logFile,50)
         const qrURL = qrCodeAwaitingToBeScanned(last50Lines)
         if(qrURL){
          botSendToBot(bot, adminWeixin, FileBox.fromUrl(qrURL,'qr.png'))
