@@ -14,6 +14,23 @@
 import { Wechaty, FileBox } from 'wechaty'
 import {execAndPipeToBot, botSendToBot, WechatyLogOperationConfig, WechatyLogOperation } from "wechaty-log-monitor"
 
+export const somethingNew = (
+  config: WechatyLogOperationConfig, parameter:{pm2Id:number}
+):WechatyLogOperation => {
+  return{
+    config,
+    onLogFileIsChanged : async (bot:Wechaty, newLogs:string)=> {
+        //your side effect
+    },
+    onCmdReceived : async (
+      bot:Wechaty, cmd:string, config: WechatyLogOperationConfig
+    ) => {
+        //your side effect
+    }
+  }
+}
+
+
 bot.use(
   WechatyLogMonitor({
     enableSelfToBeQrRescued: true,
