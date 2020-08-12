@@ -12,6 +12,20 @@
 yarn add wechaty-log-monitor@latest
 ```
 
+## features implemented
+
+### 一、掉线给码(QR Rescue)
+
+一个Wechaty掉线了，另一个Wechaty会发QR码给这个微信号来重新登陆～
+
+这样掉线了就不用`ssh`到production服务器，然后`sudo su git`+`pm2 logs --lines 50`来进行扫码重登了。
+
+Requirements:
+
+- 至少两个Wechaty bots（要部署到同个server）。
+
+- 登陆的话因为要用到微信「扫一扫」功能，需要两部手机，或一个手机+把qr投影到一个屏幕上
+
 ```
 const qrResuceForB = qrResuce(({
   logFile: "../botBob.log",
@@ -26,20 +40,10 @@ bot.use(
 )
 ```
 
-# Current Functionalities
+### 二、发log给你
 
-一、掉线给码(QR Rescue)
-
-一个Wechaty掉线了，另一个Wechaty会发QR码给这个微信号来重新登陆～
-
-这样掉线了就不用`ssh`到production服务器，然后`sudo su git`+`pm2 logs --lines 100`来进行扫码重登了。
-
-(至少两个Wechaty bots（要部署到同个server）。「掉线给码」登陆的话需要两部手机。)
-
-二、发log给你
-
-每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，一个小时最多发30条，`maxLogPerMinute`和``maxLogPerHour``可改为任何数值。
-除此之外，如果adminWeixin发给bot「log `customName`」, bot会把整个log发给你。
+每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，一个小时最多发30条，`maxLogPerMinute`和`maxLogPerHour`可改为任何数值。
+除此之外，如果adminWeixin发给bot「log `customName`」, bot会把整个log发给adminWeixin。
 
 ```
 const errorAlert = logAlert({
@@ -53,7 +57,7 @@ bot.use(
 )
 ```
 
-三、重启 pm2
+### 三、重启 pm2
 
 adminWeixin发`restart`给bot,bot就会重启指定的pm2.
 
@@ -68,6 +72,10 @@ bot.use(
 )
 ```
 
-# To-do
+Please feel free to fork me & implement more features! Pull requests are welcomed too!
+
+## To-do
 
 1. add authentication support for dangerous commands (using SMS, authy, googleAuth)
+
+2. integrate GPT-3
