@@ -14,6 +14,35 @@
 yarn add wechaty-log-monitor@latest
 ```
 
+```
+import { Wechaty, FileBox } from 'wechaty'
+import {execAndPipeToBot, botSendToBot } from "./util"
+import {WechatyLogOperationConfig, WechatyLogOperation} from "./index"
+
+export const somethingNew = (
+  config: WechatyLogOperationConfig, parameter:{pm2Id:number}
+):WechatyLogOperation => {
+  return{
+    config,
+    onLogFileIsChanged : async (bot:Wechaty, newLogs:string)=> {
+        //your side effect
+    },
+    onCmdReceived : async (
+      bot:Wechaty, cmd:string, config: WechatyLogOperationConfig
+    ) => {
+        //your side effect
+    }
+  }
+}
+
+bot.use(
+  WechatyLogMonitor({
+    enableSelfToBeQrRescued: true,
+    logOperations:[somethingNew] //can include as many log operations as you want
+  }),
+)
+```
+
 ## features implemented
 
 ### 一、掉线给码(QR Rescue)
@@ -37,7 +66,7 @@ const qrResuceForB = qrResuce(({
 bot.use(
   WechatyLogMonitor({
     enableSelfToBeQrRescued: true,
-    logOperations:[qrResuce]
+    logOperations:[qrResuceForB]
   }),
 )
 ```
