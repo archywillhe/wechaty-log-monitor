@@ -20,7 +20,7 @@ export const restartPM2 = (
 
 
 export const logAlert = (
-  config: WechatyLogOperationConfig, parameter:{maxLogPerMin:number,maxLogPerHour:number, customName:string}
+  config: WechatyLogOperationConfig, parameter:{maxLogPerMin:number, customName:string}
 ):WechatyLogOperation => {
   const {maxLogPerMin=3, customName=""}= parameter
   var currentLogCount = 0
@@ -39,6 +39,7 @@ export const logAlert = (
         }
     },
     onLogFileIsChanged : async (bot:Wechaty, newLogs:string) => {
+
       if(currentLogCount >= maxLogPerMin) return
 
       if(currentLogCount === 0){
