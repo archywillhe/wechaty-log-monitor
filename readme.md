@@ -2,9 +2,9 @@
 
 ## Wechaty Log Monitor
 
-一个基于Wechaty来对production跑的WeChaty（或任何服务器）进行log相关的DevOps的Wechaty plugin！
+This is a Wechaty plugin for log-related DevOps. Fully functional! Very Loose coupling! Pretty much pure (other than side effects in I.O.)!
 
-可以让你在微信中看log、收到log alert、执行CMD，以及实现「掉线给码」等功能。
+It allows you to receive log alerts, view log files, execute command lines, and do devops like "QR Rescue" for your WeChaty on WeChat!
 
 ![demo](demo.jpeg)
 
@@ -15,7 +15,7 @@ import { Wechaty, FileBox } from 'wechaty'
 import {execAndPipeToBot, botSendToBot, WechatyLogOperationConfig, WechatyLogOperation } from "wechaty-log-monitor"
 
 export const somethingNew = (
-  config: WechatyLogOperationConfig, parameter:{pm2Id:number}
+  config: WechatyLogOperationConfig, parameter:{someNumber:number,someString:string}
 ):WechatyLogOperation => {
   return{
     config,
@@ -30,7 +30,6 @@ export const somethingNew = (
   }
 }
 
-
 bot.use(
   WechatyLogMonitor({
     enableSelfToBeQrRescued: true,
@@ -38,6 +37,8 @@ bot.use(
   }),
 )
 ```
+
+For examples see `src/qrRescue.ts` and `src/miscellaneous.ts`!
 
 ## Quickstart
 
@@ -118,4 +119,4 @@ Please feel free to fork me & implement more features! Pull requests are welcome
 
 1. add authentication support for dangerous commands (using SMS, authy, googleAuth)
 
-2. integrate GPT-3
+2. integrate [GPT-3 Natural language Shell](https://beta.openai.com/?app=productivity&example=4_2_0)
