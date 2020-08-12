@@ -8,11 +8,7 @@
 
 ![demo](demo.jpeg)
 
-## Quickstart
-
-```
-yarn add wechaty-log-monitor@latest
-```
+## Quick guide to implement your log operation:
 
 ```
 import { Wechaty, FileBox } from 'wechaty'
@@ -41,6 +37,12 @@ bot.use(
     logOperations:[somethingNew] //can include as many log operations as you want
   }),
 )
+```
+
+## Quickstart
+
+```
+yarn add wechaty-log-monitor@latest
 ```
 
 ## features implemented
