@@ -7,7 +7,7 @@
     "wechaty": "^0.43.5"
   },
   "name": "wechaty-log-monitor",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "description": "一个基于wechaty来进行wechaty devops的wechaty plugin, primarily for log monitoring.",
   "main": "dist/index.js",
   "files": [
