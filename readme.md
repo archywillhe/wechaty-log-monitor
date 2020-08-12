@@ -2,7 +2,9 @@
 
 ## Wechaty Log Monitor
 
-一个基于Wechaty来进行Wechaty DevOps的Wechaty plugin, 主要用来做「掉线给码(QR Rescue)」等log-related的operations.
+一个基于Wechaty来对production跑的WeChaty（或任何服务器）进行log相关的DevOps的Wechaty plugin！
+
+可以让你在微信中看log、收到log alert、执行CMD，以及实现「掉线给码」等功能。
 
 ![demo](demo.jpeg)
 
