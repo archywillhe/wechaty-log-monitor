@@ -2,13 +2,13 @@
 
 ## Wechaty Log Monitor
 
-This is a Wechaty plugin for log-related DevOps. Fully functional! Very Loose coupling! Pretty much pure (other than side effects in I.O.)!
+This is a Wechaty plugin for log-related DevOps. Fully functional! Very Loose coupling! Pretty much pure (other than side effects in I.O.)! It allows you to receive log alerts, view log files, execute cmd, and perform DevOps such as _QR Rescue_ for your WeChaty on Wechat itself!
 
-It allows you to receive log alerts, view log files, execute command lines, and do devops like "QR Rescue" for your WeChaty on WeChat!
+![demo](images/demo2.jpeg)
 
-![demo](demo.jpeg)
+[A Chinese write-up about this plugin is published on wechaty.js.org](https://wechaty.js.org/2020/08/09/wechaty-log-monitor/).
 
-## Quick guide to implement your log operation:
+## Quick guide to implementing your Wechaty log operation:
 
 ```typescript
 import { Wechaty, FileBox } from 'wechaty'
@@ -46,17 +46,13 @@ For examples see `src/qrRescue.ts` and `src/miscellaneous.ts`!
 yarn add wechaty-log-monitor@latest
 ```
 
-### 一、掉线给码(QR Rescue)
-
-一个Wechaty掉线了，另一个Wechaty会发QR码给这个微信号来重新登陆～
-
-这样掉线了就不用`ssh`到production服务器，然后`sudo su git`+`pm2 logs --lines 50`来进行扫码重登了。
+### 1. qrResuce (aka 掉线给码)
 
 Requirements:
 
-- 至少两个Wechaty bots（要部署到同个server）。
+- At least two Wechaties. Must be deployed on the same production server.
 
-- 登陆的话因为要用到微信「扫一扫」功能，需要两部手机，或一个手机+把qr投影到一个屏幕上
+- Two phones. Or a way to project the QR code onto a screen so you can scan it in your Wechat via the native camera.
 
 ```typescript
 import {qrResuce, WechatyLogMonitor} from "wechaty-log-monitor"
@@ -74,13 +70,10 @@ bot.use(
 )
 ```
 
-### 二、发log给你
+![demo](images/demo.jpeg)
 
-每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，`maxLogPerMinute`可改为任何数值。
 
-<!-- 每当指定的log file有新的一行，bot就会发送给adminWeixin。默认一分钟最多发3条，一个小时最多发30条，`maxLogPerMinute`和`maxLogPerHour`可改为任何数值。 -->
-
-除此之外，如果adminWeixin发给bot「log `customName`」, bot会把整个log发给adminWeixin。
+### 二、logAlert (aka 发log给你)
 
 ```typescript
 import {logAlert, WechatyLogMonitor} from "wechaty-log-monitor"
@@ -96,9 +89,8 @@ bot.use(
 )
 ```
 
-### 三、重启 pm2
+### 三、restartPM2 (aka PM2重启)
 
-adminWeixin发`restart`给bot,bot就会重启函数中指定的pm2.
 
 ```typescript
 import {restartPM2, WechatyLogMonitor} from "wechaty-log-monitor"
@@ -113,12 +105,16 @@ bot.use(
 )
 ```
 
+![demo](images/restart.jpeg)
+
 Please feel free to fork me & implement more features! Pull requests are welcomed too!
 
 ## To-do
 
 0. write integration test cases using wechaty-mock
 
-1. add authentication support for dangerous commands (using SMS, authy, googleAuth)
+1. add authentication support (via SMS, authy, googleAuth)
 
 2. integrate [GPT-3 Natural language Shell](https://beta.openai.com/?app=productivity&example=4_2_0)
+
+![demo](images/gtp3.jpeg)
