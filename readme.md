@@ -117,6 +117,8 @@ Please feel free to fork me & implement more features! Pull requests are welcome
 
 ## To-do
 
+0. write integration test cases using wechaty-mock
+
 1. add authentication support for dangerous commands (using SMS, authy, googleAuth)
 
 2. integrate [GPT-3 Natural language Shell](https://beta.openai.com/?app=productivity&example=4_2_0)
